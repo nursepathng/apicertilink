@@ -128,7 +128,7 @@ const Utils = {
     
     // Get public profile URL
     getPublicProfileUrl: (username) => {
-        return `http://localhost:5000/public/${username}`;
+        return `https://api-certilink.onrender.com/${username}`;
     }
 };
 
