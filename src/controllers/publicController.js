@@ -52,7 +52,7 @@ const getPublicProfile = async (req, res) => {
 const redirectPublicProfile = (req, res) => {
   const { username } = req.query;
   if (username) {
-      return res.redirect(301, `/public/${username}`);
+      return res.redirect(301, `/${username}`);
   }
   return res.status(404).json({
       success: false,
