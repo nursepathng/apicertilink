@@ -38,7 +38,7 @@
                 }
             },
             requireAuth: () => { if (!Utils.isAuthenticated()) { window.location.href = '/'; return false; } return true; },
-            getPublicProfileUrl: (username) => `https://api-certilink.onrender.com/${username}`
+            getPublicProfileUrl: (username) => `https://certilink-itkd.onrender.com/${username}`
         };
         window.Utils = Utils;
 
