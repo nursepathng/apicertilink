@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Certil.ink | My Certificates</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#dbe1ff",
+                        "surface-container-highest": "#e1e2ed",
+                        "surface-dim": "#d9d9e5",
+                        "primary": "#004ac6",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#54647a",
+                        "secondary-container": "#d0e1fb",
+                        "on-surface-variant": "#434655",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "background": "#faf8ff",
+                        "surface-variant": "#e1e2ed",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#737686",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-container": "#ffede6",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-container-high": "#e7e7f3",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-primary-fixed": "#00174b",
+                        "surface-container-low": "#f3f3fe",
+                        "tertiary": "#943700",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#bc4800",
+                        "inverse-on-surface": "#f0f0fb",
+                        "surface-container": "#ededf9",
+                        "on-background": "#191b23",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#d3e4fe",
+                        "secondary": "#505f76",
+                        "surface-bright": "#faf8ff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "inverse-surface": "#2e3039",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "primary-container": "#2563eb",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-primary-container": "#eeefff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-surface": "#191b23",
+                        "surface": "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdbcd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.25rem",
+                        "2xl": "3rem",
+                        "sm": "0.5rem",
+                        "container-max": "1280px",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "base": "4px",
+                        "md": "1rem",
+                        "gutter": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #faf8ff;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .cert-card-shadow {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+        }
+        .glass-header {
+            backdrop-filter: blur(8px);
+            background: rgba(250, 248, 255, 0.8);
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-overlay .backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(25, 27, 35, 0.4);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Certificate card styles */
+        .certificate-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .cert-preview-container {
+            height: 160px;
+            background: #e7e7f3;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cert-preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cert-preview-pdf {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .cert-preview-error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #737686;
+            font-size: 2rem;
+        }
+
+        .cert-details {
+            padding: 1rem;
+        }
+
+        .cert-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #191b23;
+            margin-bottom: 0.25rem;
+        }
+
+        .cert-type {
+            font-size: 0.75rem;
+            color: #737686;
+            margin-bottom: 0.25rem;
+        }
+
+        .cert-date {
+            font-size: 0.75rem;
+            color: #737686;
+            margin-bottom: 0.75rem;
+        }
+
+        .cert-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .cert-actions .btn {
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cert-actions .btn-secondary {
+            background: #d0e1fb;
+            color: #54647a;
+        }
+
+        .cert-actions .btn-secondary:hover {
+            background: #b7c8e1;
+        }
+
+        .cert-actions .btn-danger {
+            background: #ffdad6;
+            color: #93000a;
+        }
+
+        .cert-actions .btn-danger:hover {
+            background: #ffc4be;
+        }
+
+        /* Alert styles */
+        .alert {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert-success {
+            background: #dbe1ff;
+            color: #00174b;
+        }
+
+        .alert-error {
+            background: #ffdad6;
+            color: #93000a;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .pdf-preview-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 1rem;
+        }
+
+        .pdf-preview-content .pdf-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pdf-preview-content .pdf-size {
+            font-size: 0.75rem;
+            color: #737686;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+
+<!-- Alert Container -->
+<div id="alertContainer" class="fixed top-20 right-4 z-50 max-w-md w-full space-y-2"></div>
+
+<!-- TopNavBar -->
+<nav class="bg-surface fixed top-0 w-full z-50 border-b border-outline-variant">
+<div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto">
+<div class="flex items-center gap-xl">
+<span class="text-headline-md font-headline-md font-bold text-primary">Certil.ink</span>
+</div>
+<div class="hidden md:flex items-center gap-lg ml-md">
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer transition-opacity active:opacity-70" href="dashboard.html">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer transition-opacity active:opacity-70" href="profile.html">Profile</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer transition-opacity active:opacity-70" href="#" id="logoutBtn">Logout</a>
+</div>
+</div>
+</nav>
+
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-12 px-gutter max-w-container-max mx-auto">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-xl">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">My Certificates</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your uploaded certificates and credentialing assets.</p>
+</div>
+<button class="bg-primary-container text-on-primary-container px-lg py-sm rounded-lg font-label-md text-label-md flex items-center gap-xs hover:brightness-110 active:scale-95 transition-all shadow-sm" id="uploadBtn">
+<span class="material-symbols-outlined">add</span>
+                Upload New Certificate
+            </button>
+</header>
+
+<!-- Certificate Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg" id="certificateGrid"></div>
+
+<!-- Empty State (Hidden by default) -->
+<div class="hidden py-24 flex flex-col items-center justify-center text-center" id="emptyState">
+<div class="w-20 h-20 bg-surface-container rounded-full flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-[40px] text-on-surface-variant">description</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">No Certificates Yet</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg max-w-sm">Start building your credential portfolio by uploading your first professional certificate.</p>
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md text-label-md flex items-center gap-sm hover:brightness-110 shadow-lg transition-all" id="uploadBtn">
+<span class="material-symbols-outlined">upload_file</span>
+                Upload Your First Certificate
+            </button>
+</div>
+</main>
+
+<!-- Upload Modal -->
+<div class="fixed inset-0 z-[100] hidden items-center justify-center p-md" id="uploadModal">
+    <div class="absolute inset-0 bg-on-background/40 backdrop-blur-sm"></div>
+    <div class="relative w-full max-w-lg bg-surface rounded-xl shadow-2xl p-xl flex flex-col gap-lg">
+        <div class="flex justify-between items-start">
+            <div>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">Upload Certificate</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Add a new credential to your digital wallet.</p>
+            </div>
+            <button class="material-symbols-outlined p-xs hover:bg-surface-container rounded-full transition-colors text-on-surface-variant" id="closeModal">close</button>
+        </div>
+        <form id="uploadForm">
+            <div class="flex flex-col gap-md">
+                <div class="flex flex-col gap-xs">
+                    <label class="font-label-md text-label-md text-on-surface-variant ml-xs">Certificate Title</label>
+                    <input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-md py-sm font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="e.g. Google UX Design Certificate" type="text" id="certTitle" required/>
+                </div>
+                <div class="flex flex-col gap-xs">
+                    <label class="font-label-md text-label-md text-on-surface-variant ml-xs">Upload File</label>
+                    <div class="border-2 border-dashed border-outline-variant rounded-xl p-xl flex flex-col items-center justify-center gap-sm bg-surface-container-lowest hover:bg-surface-container-low transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[32px] text-primary">cloud_upload</span>
+                        <div class="text-center">
+                            <p class="font-body-md text-body-md text-on-surface">Drag and drop file here</p>
+                            <p class="font-label-md text-label-md text-on-surface-variant">PDF, PNG, or JPG (max 5MB)</p>
+                        </div>
+                        <input class="hidden" id="certFile" type="file" accept=".pdf,.png,.jpg,.jpeg"/>
+                        <button class="mt-xs text-primary font-label-md text-label-md font-bold" type="button" onclick="document.getElementById('certFile').click()">Browse Files</button>
+                    </div>
+                    <div class="mt-2 hidden" id="filePreviewContainer">
+                        <div class="flex items-center justify-between bg-surface-container rounded-lg p-3">
+                            <div class="flex items-center gap-2">
+                                <span id="fileNameDisplay" class="font-body-md text-body-md"></span>
+                                <span id="fileSizeDisplay" class="font-label-md text-label-md text-on-surface-variant"></span>
+                            </div>
+                            <button type="button" class="text-error material-symbols-outlined" id="removeFileBtn" style="display:none">close</button>
+                        </div>
+                        <div id="filePreviewWrapper" class="mt-2">
+                            <img id="filePreview" class="hidden max-h-32 rounded-lg" alt="File preview"/>
+                            <div id="pdfPreview" class="hidden"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="uploadProgress" style="display:none" class="w-full bg-surface-container rounded-full h-2">
+                    <div id="progressFill" class="bg-primary h-2 rounded-full transition-all duration-300" style="width:0%"></div>
+                </div>
+            </div>
+            <div class="flex gap-md mt-md">
+                <button type="button" class="flex-1 px-lg py-sm rounded-lg border border-outline-variant font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-colors" onclick="document.getElementById('uploadModal').classList.remove('active')">Cancel</button>
+                <button type="submit" class="flex-1 bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md text-label-md font-bold hover:brightness-110 shadow-md transition-all">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body></html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Profile Management | Certil.ink</title>
+    <!-- Tailwind + Google Fonts + Material Icons -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "primary-container": "#2563eb",
+                        "on-background": "#191b23",
+                        "surface-container": "#ededf9",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary-container": "#eeefff",
+                        "outline-variant": "#c3c6d7",
+                        "tertiary": "#943700",
+                        "primary-fixed": "#dbe1ff",
+                        "outline": "#737686",
+                        "on-primary": "#ffffff",
+                        "background": "#faf8ff",
+                        "surface": "#faf8ff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "secondary-container": "#d0e1fb",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e1e2ed",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#bc4800",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-tertiary-container": "#ffede6",
+                        "surface-dim": "#d9d9e5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "on-secondary-container": "#54647a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-surface": "#191b23",
+                        "surface-tint": "#0053db",
+                        "on-primary-fixed": "#00174b",
+                        "secondary": "#505f76",
+                        "on-tertiary-fixed": "#360f00",
+                        "surface-container-highest": "#e1e2ed",
+                        "secondary-fixed": "#d3e4fe",
+                        "inverse-primary": "#b4c5ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "inverse-on-surface": "#f0f0fb",
+                        "surface-container-low": "#f3f3fe",
+                        "inverse-surface": "#2e3039",
+                        "surface-bright": "#faf8ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e7e7f3",
+                        "primary": "#004ac6"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        base: "4px",
+                        "2xl": "3rem",
+                        xs: "0.25rem",
+                        sm: "0.5rem",
+                        gutter: "1.5rem",
+                        md: "1rem",
+                        xl: "2rem",
+                        "container-max": "1280px",
+                        lg: "1.5rem"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        display: ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    fontSize: {
+                        "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "500" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        display: ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        .profile-card {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        /* toast animation */
+        #toast {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        #toast.hidden-toast {
+            transform: translateY(24px);
+            opacity: 0;
+        }
+        #toast.visible-toast {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        /* alert container */
+        #alertContainer .alert {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+        #alertContainer .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        #alertContainer .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        #alertContainer .alert-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        /* avatar hover */
+        .avatar-upload-overlay {
+            transition: opacity 0.2s;
+        }
+        .avatar-group:hover .avatar-upload-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline">
+        <div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto">
+            <div class="flex items-center gap-xl">
+                <span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim cursor-pointer">Certil.ink</span>
+                <div class="hidden md:flex items-center gap-lg ml-md">
+                    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer transition-opacity active:opacity-70" href="dashboard.html">Dashboard</a>
+                    <a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer transition-opacity active:opacity-70" href="profile.html">Profile</a>
+                    <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer transition-opacity active:opacity-70" href="#" id="logoutBtn">Logout</a>
+                    </div>
+            </div>
+            <div class="flex items-center gap-md">
+                <div class="ml-sm w-8 h-8 rounded-full overflow-hidden border border-outline-variant cursor-pointer active:scale-95 transition-transform" title="User profile menu">
+                    <img id="navAvatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsct-077Clt3A-1_77SbXkICHHP3JyoE2lhQua95o5ROjXaDztqJ0lmLDbNTlxjVEyA742CcK26DsUpTbWQaJJFcHehkZ-RzWUvaL1vbAWT38C5J-4qZ5wtxVCvVfI2wllrqBsjgYVxJhj1wXICxx691Ls7StyDHX2ZdyPXMExcKJp51NApQJmW4ZB6yxHSo4icEJTahcAFZyQanhwgMZzZqJNKd7mKl07m_EBdoTuorRBI8KL4pbYR-l9TEM5kJQgSFKx_otWICU0" alt="avatar" />
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Canvas -->
+    <main class="pt-24 pb-12 px-gutter">
+        <div class="max-w-4xl mx-auto space-y-lg">
+            <!-- Alert container for dynamic messages -->
+            <div id="alertContainer"></div>
+
+            <!-- Profile Overview Card -->
+            <div class="bg-surface-container-lowest rounded-xl profile-card overflow-hidden">
+                <!-- Decorative Banner -->
+                <div class="h-32 bg-gradient-to-r from-primary to-primary-container opacity-90 relative">
+                    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+                </div>
+                <div class="px-lg pb-lg">
+                    <div class="relative flex flex-col md:flex-row md:items-end gap-lg -mt-12 mb-lg">
+                        <!-- Avatar Section with group for hover -->
+                        <div class="relative group shrink-0 avatar-group">
+                            <div class="w-32 h-32 rounded-full border-4 border-surface-container-lowest overflow-hidden bg-surface-variant shadow-lg">
+                                <img id="profileAvatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMaEMNA-H98moj4E7G60zpMR6Bjf3Mu2Ynrz_3A8tNZecB1UFC53ouRuniXrfSwzf5Lb0nosY-UdOBs5ezGKfcfUFNJn67-3acE7N_F_XA2DsZrm6K7LBH2fbxQlMz0v0HBl-5fZt1ZX-5LT9IUe1O5KIU0h0MHgJhJLO9G8kDyrBTbdX0SvC7i-L-jv0l1cxlhdJYgzdtDiBgTGlxNn9P6FRWMHzJG-W-D3CWndgJoBRoJQCnbTef114tmylC73MvCaFsHRKZVU9R" alt="Profile" />
+                            </div>
+                            <!-- Overlay for avatar upload (clickable) -->
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/40 rounded-full opacity-0 avatar-upload-overlay transition-opacity cursor-pointer" id="changeAvatarBtn">
+                                <span class="material-symbols-outlined text-white text-3xl">photo_camera</span>
+                            </div>
+                            <input type="file" id="avatarInput" accept=".jpg,.jpeg,.png" style="display:none;" />
+                        </div>
+                        <!-- Identity Info -->
+                        <div class="flex-grow pb-sm">
+                            <h1 id="profileName" class="font-headline-lg text-headline-lg text-on-surface">Alex Rivers</h1>
+                            <p class="font-body-md text-body-md text-on-surface-variant">@<span id="profileUsername">alex_rivers</span></p>
+                        </div>
+                        <!-- Stats Badge -->
+                        <div class="md:mb-md flex items-center gap-sm px-md py-sm bg-secondary-container rounded-lg text-on-secondary-container">
+                            <span class="material-symbols-outlined">workspace_premium</span>
+                            <span id="certificateCount" class="font-label-md text-label-md font-bold">3 Certificates Earned</span>
+                        </div>
+                    </div>
+                    <!-- Bio & Link Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-xl pt-lg border-t border-outline-variant">
+                        <div class="md:col-span-2">
+                            <h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-sm">About</h3>
+                            <p id="profileBio" class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+                                Passionate UX Designer and AWS Certified Architect based in San Francisco. Focused on building secure, scalable design systems and credential management workflows.
+                            </p>
+                        </div>
+                        <div class="space-y-md">
+                            <h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Public Profile</h3>
+                            <div class="flex flex-col gap-sm">
+                                <div class="bg-surface-container-low px-md py-sm rounded-lg flex items-center justify-between border border-outline-variant group">
+                                    <span class="font-body-md text-body-md text-primary truncate" id="publicProfileDisplay">certil.ink/public-profile?username=alex_rivers</span>
+                                    <button id="copyLinkBtn" class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer" title="Copy Link">
+                                        <span class="material-symbols-outlined text-[20px]">content_copy</span>
+                                    </button>
+                                </div>
+                                <p class="text-[11px] text-on-surface-variant/70 italic">Your profile is visible to employers and verifiers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Section -->
+            <div class="bg-surface-container-lowest rounded-xl profile-card p-lg">
+                <div class="flex items-center justify-between mb-xl">
+                    <div>
+                        <h2 class="font-headline-md text-headline-md text-on-surface">Edit Profile</h2>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Update your personal information and biography.</p>
+                    </div>
+                </div>
+                <form id="profileForm" class="space-y-xl max-w-2xl" onsubmit="event.preventDefault(); handleProfileUpdate(event);">
+                    <!-- Full Name Field -->
+                    <div class="space-y-xs">
+                        <label class="font-label-md text-label-md text-on-surface font-semibold" for="editName">Full Name</label>
+                        <input id="editName" class="w-full bg-surface border border-outline-variant rounded-lg px-md py-sm font-body-md text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" type="text" value="Alex Rivers" />
+                    </div>
+                    <!-- Bio Field -->
+                    <div class="space-y-xs">
+                        <div class="flex justify-between">
+                            <label class="font-label-md text-label-md text-on-surface font-semibold" for="editBio">Bio</label>
+                            <span class="text-label-md text-on-surface-variant" id="char-count">108 / 300</span>
+                        </div>
+                        <textarea id="editBio" class="w-full bg-surface border border-outline-variant rounded-lg px-md py-sm font-body-md text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all resize-none" rows="4">Passionate UX Designer and AWS Certified Architect based in San Francisco.</textarea>
+                        <p class="text-label-md text-on-surface-variant mt-xs">Brief description for your profile. URLs and @mentions are allowed.</p>
+                    </div>
+                    <!-- Actions -->
+                    <div class="pt-md flex items-center gap-md">
+                        <button class="bg-primary text-on-primary px-xl py-sm rounded-lg font-label-md text-label-md font-bold hover:shadow-md hover:bg-primary/95 transition-all active:scale-95 cursor-pointer flex items-center gap-sm" type="submit">
+                            <span class="material-symbols-outlined text-[20px]">save</span>
+                            Update Profile
+                        </button>
+                        <button class="bg-surface-container text-on-surface px-xl py-sm rounded-lg font-label-md text-label-md font-bold hover:bg-surface-variant transition-all active:scale-95 cursor-pointer" type="reset">
+                            Discard Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Toast (JS Powered) -->
+    <div id="toast" class="fixed bottom-8 right-8 bg-inverse-surface text-inverse-on-surface px-xl py-md rounded-lg shadow-2xl hidden-toast flex items-center gap-md z-50">
+        <span class="material-symbols-outlined text-primary-fixed-dim">check_circle</span>
+        <span id="toastMessage" class="font-body-md text-body-md">Profile successfully updated</span>
+    </div>
+
+    <!-- JavaScript with API and Utils integration -->
+    <script src="js/profile.js"></script>
+</body>
+</html>

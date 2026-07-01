@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Certil.ink</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            background: #000;
+            color: white;
+        }
+
+        /* Full Screen Video Container */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* Dark Overlay for Better Text Visibility */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(2px);
+        }
+
+        /* Center Content */
+        .center-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Watch Button - Hidden by default */
+        .watch-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 48px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 40px rgba(102, 126, 234, 0.4);
+            letter-spacing: 0.01em;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .watch-btn.show {
+            display: inline-flex;
+        }
+
+        .watch-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 50px rgba(102, 126, 234, 0.6);
+        }
+
+        .watch-btn:active {
+            transform: scale(0.96);
+        }
+
+        .watch-btn .icon {
+            font-size: 1.5rem;
+        }
+
+        /* Ripple Effect */
+        .watch-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .watch-btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Already Watched State */
+        .watch-btn.watched {
+            background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+            box-shadow: 0 8px 40px rgba(52, 211, 153, 0.4);
+        }
+
+        .watch-btn.watched:hover {
+            box-shadow: 0 12px 50px rgba(52, 211, 153, 0.6);
+        }
+
+        .watch-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Progress Bar */
+        .video-progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 4;
+            padding: 20px 30px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+        }
+
+        .video-progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .video-progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* Skip Hint */
+        .skip-hint {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            animation: pulse 2s ease-in-out infinite;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .skip-hint:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .skip-hint.hidden {
+            display: none;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .status-badge.watching {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .status-badge.ready {
+            background: rgba(52, 211, 153, 0.3);
+            border-color: rgba(52, 211, 153, 0.3);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(102, 126, 234, 0.6);
+            }
+        }
+
+        .watch-btn.ready {
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+
+            .watch-btn {
+                padding: 16px 36px;
+                font-size: 1rem;
+            }
+
+            .watch-btn .icon {
+                font-size: 1.2rem;
+            }
+
+            .skip-hint {
+                bottom: 70px;
+                font-size: 0.75rem;
+            }
+
+            .video-progress-container {
+                padding: 15px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 0.9rem;
+                margin-bottom: 30px;
+            }
+
+            .watch-btn {
+                padding: 14px 28px;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .status-badge {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+                cursor: pointer;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video Container -->
+    <div class="video-container">
+        <!-- Replace the src with your actual video URL -->
+        <video id="guideVideo" playsinline>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            <!-- Fallback message if video doesn't load -->
+            <p>Your browser doesn't support HTML5 video. Here is a <a href="#">link to the video</a> instead.</p>
+        </video>
+    </div>
+
+    <!-- Dark Overlay -->
+    <div class="video-overlay"></div>
+
+    <!-- Center Content -->
+    <div class="center-content">
+        <div class="logo">
+            <span>Certil.ink</span>
+        </div>
+        
+        <!-- Status Badge -->
+        <div id="statusBadge" class="status-badge watching">
+            Watching guide...
+        </div>
+        
+        <p class="tagline" id="tagline">
+            Your Digital Credential Portfolio<br>
+            Watch the guide to get started
+        </p>
+
+        <!-- Watch Button -->
+        <button id="watchBtn" class="watch-btn">
+            <span id="btnText">I Have Watched &amp; Understand</span>
+        </button>
+    </div>
+
+    <!-- Skip Hint -->
+    <div class="skip-hint" id="skipHint">
+        Already watched? Click the button when ready
+    </div>
+
+    <!-- Video Progress -->
+    <div class="video-progress-container">
+        <div class="video-progress-bar">
+            <div class="video-progress-fill" id="progressFill"></div>
+        </div>
+        <div class="video-progress-label">
+            <span id="currentTimeDisplay">0:00</span>
+            <span id="durationDisplay">0:00</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // DOM Elements
+            const watchBtn = document.getElementById('watchBtn');
+            const btnText = document.getElementById('btnText');
+            const video = document.getElementById('guideVideo');
+            const skipHint = document.getElementById('skipHint');
+            const progressFill = document.getElementById('progressFill');
+            const currentTimeDisplay = document.getElementById('currentTimeDisplay');
+            const durationDisplay = document.getElementById('durationDisplay');
+            const statusBadge = document.getElementById('statusBadge');
+            const tagline = document.getElementById('tagline');
+
+            // Constants
+            const STORAGE_KEY = 'certilink_welcome_watched';
+            const REDIRECT_URL = 'index.html';
+            const SHOW_BUTTON_AT = 0.85; // Show button when 85% of video is watched
+            const BUTTON_READY_AT = 0.90; // Button becomes ready/glowing at 90%
+
+            let buttonReady = false;
+            let buttonShown = false;
+            let isRedirecting = false;
+
+            /**
+             * Check if user has already watched the guide
+             */
+            function hasWatched() {
+                try {
+                    const watched = localStorage.getItem(STORAGE_KEY);
+                    return watched === 'true';
+                } catch (error) {
+                    console.error('Error reading localStorage:', error);
+                    return false;
+                }
+            }
+
+            /**
+             * Mark guide as watched
+             */
+            function markAsWatched() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, 'true');
+                    return true;
+                } catch (error) {
+                    console.error('Error writing to localStorage:', error);
+                    return false;
+                }
+            }
+
+            /**
+             * Format time in MM:SS
+             */
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            /**
+             * Update progress bar and time displays
+             */
+            function updateProgress() {
+                if (!video || !video.duration) return;
+                
+                const currentTime = video.currentTime;
+                const duration = video.duration;
+                const progress = (currentTime / duration) * 100;
+                
+                progressFill.style.width = `${Math.min(progress, 100)}%`;
+                currentTimeDisplay.textContent = formatTime(currentTime);
+                durationDisplay.textContent = formatTime(duration);
+                
+                // Check if we should show the button
+                const progressRatio = currentTime / duration;
+                
+                if (progressRatio >= SHOW_BUTTON_AT && !buttonShown) {
+                    showWatchButton(false);
+                }
+                
+                if (progressRatio >= BUTTON_READY_AT && !buttonReady) {
+                    setButtonReady();
+                }
+            }
+
+            /**
+             * Show the watch button
+             */
+            function showWatchButton(ready = false) {
+                if (buttonShown) return;
+                buttonShown = true;
+                
+                watchBtn.classList.add('show');
+                
+                // Update status badge
+                statusBadge.textContent = 'Ready to confirm';
+                statusBadge.className = 'status-badge ready';
+                
+                // Update tagline
+                tagline.textContent = 'You\'ve watched the guide! Confirm below to continue.';
+                
+                // Hide skip hint
+                skipHint.classList.add('hidden');
+                
+                if (ready) {
+                    setButtonReady();
+                }
+                
+                // Play a subtle animation
+                watchBtn.style.animation = 'none';
+                setTimeout(() => {
+                    watchBtn.style.animation = 'fadeInUp 0.6s ease-out';
+                }, 10);
+            }
+
+            /**
+             * Set button to ready state (glowing)
+             */
+            function setButtonReady() {
+                if (buttonReady) return;
+                buttonReady = true;
+                watchBtn.classList.add('ready');
+                btnText.textContent = 'I Have Watched & Understand';
+                
+                // Update status badge
+                statusBadge.textContent = 'Ready to continue!';
+            }
+
+            /**
+             * Handle watch button click
+             */
+            function handleWatchClick() {
+                if (isRedirecting) return;
+                
+                // Don't allow click if button hasn't been shown yet
+                if (!buttonShown) {
+                    // Show a subtle hint
+                    statusBadge.textContent = 'Please watch the full guide first';
+                    statusBadge.className = 'status-badge watching';
+                    setTimeout(() => {
+                        if (!buttonShown) {
+                            statusBadge.textContent = 'Watching guide...';
+                            statusBadge.className = 'status-badge watching';
+                        }
+                    }, 3000);
+                    return;
+                }
+                
+                isRedirecting = true;
+                
+                // Add loading state
+                watchBtn.disabled = true;
+                btnText.textContent = 'Processing...';
+
+                // Mark as watched
+                const success = markAsWatched();
+
+                if (success) {
+                    // Update button state
+                    watchBtn.classList.add('watched');
+                    watchBtn.classList.remove('ready');
+                    btnText.textContent = 'Redirecting...';
+
+                    // Redirect after animation
+                    setTimeout(() => {
+                        window.location.href = REDIRECT_URL;
+                    }, 1000);
+                } else {
+                    // Handle error
+                    btnText.textContent = 'Error occurred. Please try again.';
+                    watchBtn.disabled = false;
+                    isRedirecting = false;
+
+                    setTimeout(() => {
+                        btnText.textContent = 'I Have Watched & Understand';
+                        watchBtn.disabled = false;
+                    }, 3000);
+                }
+            }
+
+            /**
+             * Skip hint click handler
+             */
+            function handleSkipHint() {
+                if (buttonShown || isRedirecting) return;
+                
+                if (confirm('Skip the guide and proceed to the dashboard?')) {
+                    // Mark as watched and redirect
+                    markAsWatched();
+                    window.location.href = REDIRECT_URL;
+                }
+            }
+
+            /**
+             * Handle video load errors
+             */
+            function handleVideoError() {
+                const videoContainer = document.querySelector('.video-container');
+                const fallbackMsg = document.createElement('div');
+                fallbackMsg.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    color: white;
+                    text-align: center;
+                    font-size: 1.2rem;
+                    z-index: 1;
+                    padding: 20px;
+                    background: rgba(0,0,0,0.7);
+                    border-radius: 12px;
+                    max-width: 80%;
+                `;
+                fallbackMsg.innerHTML = `
+                    <span style="font-size: 3rem; display: block; margin-bottom: 12px;">🎬</span>
+                    <p>Video guide is loading...</p>
+                    <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 8px;">You can still click the button below</p>
+                `;
+                videoContainer.appendChild(fallbackMsg);
+                
+                // Show button as fallback after 3 seconds
+                setTimeout(() => {
+                    showWatchButton(true);
+                }, 3000);
+            }
+
+            /**
+             * Handle video ended event
+             */
+            function handleVideoEnded() {
+                // Ensure button is shown and ready when video ends
+                if (!buttonShown) {
+                    showWatchButton(true);
+                } else if (!buttonReady) {
+                    setButtonReady();
+                }
+            }
+
+            /**
+             * Initialize the page
+             */
+            function init() {
+                // Check if already watched
+                if (hasWatched()) {
+                    // Already watched, redirect immediately
+                    window.location.href = REDIRECT_URL;
+                    return;
+                }
+
+                // Add event listeners
+                watchBtn.addEventListener('click', handleWatchClick);
+
+                // Skip hint click
+                if (skipHint) {
+                    skipHint.addEventListener('click', handleSkipHint);
+                }
+
+                // Video events
+                if (video) {
+                    video.addEventListener('timeupdate', updateProgress);
+                    video.addEventListener('ended', handleVideoEnded);
+                    video.addEventListener('error', handleVideoError);
+                    
+                    // Load metadata to get duration
+                    video.addEventListener('loadedmetadata', () => {
+                        durationDisplay.textContent = formatTime(video.duration);
+                    });
+                    
+                    // Handle video load
+                    video.addEventListener('loadeddata', () => {
+                        console.log('Video loaded successfully');
+                    });
+                    
+                    // Attempt to play
+                    video.play().catch(() => {
+                        // Show a play button or message
+                        statusBadge.textContent = 'Click to play guide';
+                        statusBadge.className = 'status-badge';
+                        
+                        // Add click to play
+                        document.addEventListener('click', function playOnClick() {
+                            video.play().catch(() => {});
+                            document.removeEventListener('click', playOnClick);
+                            statusBadge.textContent = 'Watching guide...';
+                            statusBadge.className = 'status-badge watching';
+                        }, { once: true });
+                    });
+                }
+
+                // Keyboard shortcut: Press 'W' to confirm watch
+                document.addEventListener('keydown', (e) => {
+                    if ((e.key === 'w' || e.key === 'W') && !e.ctrlKey && !e.metaKey) {
+                        if (buttonShown && !isRedirecting) {
+                            handleWatchClick();
+                        }
+                    }
+                    // Press 'Enter' or 'Space' on the button
+                    if ((e.key === 'Enter' || e.key === ' ') && document.activeElement === watchBtn) {
+                        e.preventDefault();
+                        handleWatchClick();
+                    }
+                });
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+        })();
+    </script>
+
+</body>
+</html>

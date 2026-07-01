@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn More - Certil.ink Verified Badge</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#f3f3fe",
+                        "surface-container": "#ededf9",
+                        "primary": "#004ac6",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-container-high": "#e7e7f3",
+                        "tertiary": "#943700",
+                        "on-primary-fixed": "#00174b",
+                        "on-tertiary-container": "#ffede6",
+                        "on-error": "#ffffff",
+                        "secondary": "#505f76",
+                        "surface-dim": "#d9d9e5",
+                        "outline": "#737686",
+                        "primary-container": "#2563eb",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-tint": "#0053db",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-surface-variant": "#434655",
+                        "on-background": "#191b23",
+                        "secondary-container": "#d0e1fb",
+                        "on-surface": "#191b23",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdbcd",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-container-highest": "#e1e2ed",
+                        "inverse-on-surface": "#f0f0fb",
+                        "tertiary-container": "#bc4800",
+                        "surface": "#faf8ff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary-container": "#54647a",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "inverse-surface": "#2e3039",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "background": "#faf8ff",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e1e2ed",
+                        "on-primary-container": "#eeefff",
+                        "surface-bright": "#faf8ff"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        gutter: "1.5rem",
+                        xl: "2rem",
+                        base: "4px",
+                        "2xl": "3rem",
+                        "container-max": "1280px",
+                        xs: "0.25rem",
+                        sm: "0.5rem",
+                        md: "1rem",
+                        lg: "1.5rem"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        display: ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "500" }],
+                        "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        display: ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            color: #1a1a2e;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            padding: 16px 32px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .nav-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-brand .material-symbols-outlined {
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            background: #f3f4f6;
+            color: #667eea;
+        }
+
+        .nav-links .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 10px;
+        }
+
+        .nav-links .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #5a6fd6 0%, #6a4292 100%);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero .verified-icon-large {
+            font-size: 80px;
+            margin-bottom: 16px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 32px 24px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-card .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 28px;
+        }
+
+        .feature-card .feature-icon.blue {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .feature-card .feature-icon.green {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .feature-card .feature-icon.purple {
+            background: #ede9fe;
+            color: #7c3aed;
+        }
+
+        .feature-card .feature-icon.orange {
+            background: #fed7aa;
+            color: #ea580c;
+        }
+
+        .feature-card .feature-icon.red {
+            background: #fecaca;
+            color: #dc2626;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .pricing-card.popular {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f0ff 100%);
+        }
+
+        .pricing-card.popular .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin: 16px 0 4px;
+        }
+
+        .pricing-card .price span {
+            font-size: 18px;
+            font-weight: 400;
+            color: #6b7280;
+        }
+
+        .pricing-card .price-sub {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .pricing-card .features-list {
+            list-style: none;
+            text-align: left;
+            margin: 16px 0;
+            padding: 0;
+        }
+
+        .pricing-card .features-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a5568;
+            font-size: 14px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .pricing-card .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-card .features-list .material-symbols-outlined {
+            color: #059669;
+            font-size: 18px;
+        }
+
+        .pricing-card .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .pricing-card .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .pricing-card .btn-secondary {
+            background: #f3f4f6;
+            color: #4a5568;
+            padding: 12px 32px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .pricing-card .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        /* Example Button */
+        .example-btn-container {
+            text-align: center;
+            margin: 32px 0;
+        }
+
+        .example-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 40px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .example-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+            background: #f8f9ff;
+        }
+
+        /* Example Modal */
+        .example-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .example-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .example-modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+
+        .example-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .example-modal-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .example-modal-header .close-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: #f3f4f6;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #4a5568;
+        }
+
+        .example-modal-header .close-btn:hover {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .example-device-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .example-device {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .example-device .device-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .example-device .device-frame {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .example-device .device-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .example-device .device-frame.desktop {
+            border-radius: 8px;
+        }
+
+        .example-device .device-frame.mobile {
+            max-width: 300px;
+            margin: 0 auto;
+            border-radius: 16px;
+        }
+
+        .example-device .device-frame.mobile img {
+            border-radius: 16px;
+        }
+
+        .verified-badge-highlight {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #d1fae5;
+            color: #004ac6;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: #e5e7eb;
+        }
+
+        .faq-question {
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #1a1a2e;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f9fafb;
+        }
+
+        .faq-question .material-symbols-outlined {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question .material-symbols-outlined {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 16px;
+            max-height: 300px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+        }
+
+        .cta-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .cta-section p {
+            opacity: 0.8;
+            margin-bottom: 24px;
+            font-size: 16px;
+        }
+
+        .cta-section .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-section .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-section .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-section .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-section .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 32px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer .brand {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 16px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 60px 16px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-header h2 {
+                font-size: 24px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .example-device-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .example-device .device-frame.mobile {
+                max-width: 200px;
+            }
+
+            .example-modal-content {
+                padding: 20px;
+            }
+
+            .cta-section {
+                padding: 40px 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero .verified-icon-large {
+                font-size: 56px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .cta-section .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-section .btn-primary,
+            .cta-section .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .pricing-card .price {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant">
+        <div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto">
+            <div class="flex items-center gap-md">
+                <span class="text-headline-md font-headline-md font-bold text-primary">Certil.ink</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="verified-icon-large">
+                <span class="material-symbols-outlined" style="font-size: 80px; font-variation-settings: 'FILL' 1;">verified</span>
+            </div>
+            <h1>Verified Badge Program</h1>
+            <p>Get verified on Certil.ink and build trust with your professional network. Paid verification with annual renewal.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- What is Verified Badge -->
+        <section class="section">
+            <div class="section-header">
+                <h2>What is the Verified Badge?</h2>
+                <p>The verified badge is a trust signal that confirms the authenticity of a profile</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon blue">
+                        <span class="material-symbols-outlined">verified_user</span>
+                    </div>
+                    <h3>Identity Verification</h3>
+                    <p>Confirms that the profile belongs to a real person or legitimate organization. It helps prevent impersonation and builds trust.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">
+                        <span class="material-symbols-outlined">shield</span>
+                    </div>
+                    <h3>Enhanced Trust</h3>
+                    <p>Verified profiles are more trusted by visitors, employers, and collaborators. It signals professionalism and authenticity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon purple">
+                        <span class="material-symbols-outlined">stars</span>
+                    </div>
+                    <h3>Premium Recognition</h3>
+                    <p>Verified profiles receive premium placement and recognition across the Certil.ink platform, increasing visibility.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon orange">
+                        <span class="material-symbols-outlined">security</span>
+                    </div>
+                    <h3>Secure &amp; Safe</h3>
+                    <p>Our verification process ensures that only legitimate profiles receive the badge, making the platform safer for everyone.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Renewal Information -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Renewal Information</h2>
+                <p>Keep your verified badge active with annual renewal</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon blue">
+                        <span class="material-symbols-outlined">update</span>
+                    </div>
+                    <h3>Annual Renewal</h3>
+                    <p>Your verification badge must be renewed annually to maintain active status. You'll receive a renewal reminder 30 days before expiration.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">
+                        <span class="material-symbols-outlined">notifications_active</span>
+                    </div>
+                    <h3>Renewal Notifications</h3>
+                    <p>We'll send email and in-app notifications when your verification is approaching its expiration date.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon purple">
+                        <span class="material-symbols-outlined">credit_card</span>
+                    </div>
+                    <h3>Auto-Renewal Option</h3>
+                    <p>Enable auto-renewal to keep your badge active without interruption. You can cancel anytime before the renewal date.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon red">
+                        <span class="material-symbols-outlined">warning</span>
+                    </div>
+                    <h3>Grace Period</h3>
+                    <p>If you miss the renewal date, you have a 14-day grace period to renew before the badge is permanently removed.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Common questions about the verified badge program</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How much does verification cost?</span>
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </div>
+                    <div class="faq-answer">
+                        Verification plans start at $49 per year for the Standard plan, $99 per year for the Professional plan, and $199 per year for the Enterprise plan. All plans require annual renewal to maintain the verified status.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need to renew every year?</span>
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, the verified badge requires annual renewal. You'll receive a notification 30 days before your verification expires. You can also enable auto-renewal for uninterrupted verification.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What happens if I don't renew?</span>
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </div>
+                    <div class="faq-answer">
+                        If you don't renew within the 14-day grace period, your verified badge will be permanently removed. You'll need to reapply and pay the verification fee again to regain the badge.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does the verification process take?</span>
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </div>
+                    <div class="faq-answer">
+                        The verification process typically takes 2-5 business days. You will receive an email notification once your application has been reviewed and approved.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I get a refund if my application is rejected?</span>
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, if your application is rejected, you'll receive a full refund. You'll also receive feedback on why the application was rejected so you can address the issues and reapply.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I lose my verified badge?</span>
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, the verified badge can be removed if you violate Certil.ink's terms of service, engage in fraudulent activity, or fail to maintain an active, professional profile. You will be notified before any action is taken.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Ready to Get Verified?</h2>
+            <p>Start building trust and credibility with the verified badge</p>
+            <div class="btn-group">
+                <button class="btn-primary" onclick="document.querySelector('.pricing-card.popular .btn-primary').click()">Get Verified Now</button>
+                <button class="btn-secondary" id="exampleBtn2">View Example Profile</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Example Modal -->
+    <div class="example-modal" id="exampleModal">
+        <div class="example-modal-content">
+            <div class="example-modal-header">
+                <h2>
+                    <span class="material-symbols-outlined" style="color: #004ac6; font-variation-settings: 'FILL' 1;">verified</span>
+                    Verified Profile Example
+                </h2>
+                <button class="close-btn" id="closeModalBtn">✕</button>
+            </div>
+            
+            <div class="example-device-grid">
+                <!-- Desktop View -->
+                <div class="example-device">
+                    <div class="device-label">
+                        <span class="material-symbols-outlined">desktop_windows</span>
+                        Desktop View
+                    </div>
+                    <div class="device-frame desktop">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='auto'%3E%3Crect width='100%25' height='100%25' fill='%23f8f9fa'/%3E%3Ctext x='50%25' y='45%25' font-family='Inter' font-size='20' fill='%236b7280' text-anchor='middle'%3E🖥️ Verified Profile - Desktop%3C/text%3E%3Ctext x='50%25' y='55%25' font-family='Inter' font-size='14' fill='%236b7280' text-anchor='middle'%3EProfile with verified badge shown prominently%3C/text%3E%3C/svg%3E" alt="Desktop Verified Profile">
+                    </div>
+                    <div style="margin-top: 12px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                        <span class="verified-badge-highlight">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 16px; font-variation-settings: 'FILL' 1;">verified</span>
+                            Verified Badge
+                        </span>
+                        <span style="font-size: 13px; color: #6b7280;">Shown next to name</span>
+                    </div>
+                </div>
+
+                <!-- Mobile View -->
+                <div class="example-device">
+                    <div class="device-label">
+                        <span class="material-symbols-outlined">smartphone</span>
+                        Mobile View
+                    </div>
+                    <div class="device-frame mobile">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='auto'%3E%3Crect width='100%25' height='100%25' fill='%23f8f9fa'/%3E%3Ctext x='50%25' y='45%25' font-family='Inter' font-size='16' fill='%236b7280' text-anchor='middle'%3E📱 Mobile Verified%3C/text%3E%3Ctext x='50%25' y='55%25' font-family='Inter' font-size='12' fill='%236b7280' text-anchor='middle'%3EProfile with verified badge%3C/text%3E%3C/svg%3E" alt="Mobile Verified Profile">
+                    </div>
+                    <div style="margin-top: 12px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                        <span class="verified-badge-highlight">
+                            <span class="material-symbols-outlined" style="font-size: 16px; font-variation-settings: 'FILL' 1;">verified</span>
+                            Verified Badge
+                        </span>
+                        <span style="font-size: 13px; color: #6b7280;">Visible on mobile profile</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #f3f4f6; text-align: center;">
+                <p style="color: #6b7280; font-size: 14px;">
+                    The verified badge appears prominently on both desktop and mobile views,
+                    <br>making it easy for visitors to recognize verified profiles.
+                </p>
+                <button class="btn-primary" style="margin-top: 16px; padding: 12px 32px; border: none; border-radius: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 600; cursor: pointer;" onclick="document.getElementById('exampleModal').classList.remove('active')">
+                    Got It!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', function() {
+                    const isActive = item.classList.contains('active');
+                    
+                    faqItems.forEach(other => {
+                        if (other !== item) {
+                            other.classList.remove('active');
+                        }
+                    });
+                    
+                    if (isActive) {
+                        item.classList.remove('active');
+                    } else {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            // Auto-open first FAQ item
+            if (faqItems.length > 0) {
+                faqItems[0].classList.add('active');
+            }
+
+            // Example Modal functionality
+            const exampleModal = document.getElementById('exampleModal');
+            const exampleBtn = document.getElementById('exampleBtn');
+            const exampleBtn2 = document.getElementById('exampleBtn2');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+
+            function openModal() {
+                exampleModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                exampleModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            if (exampleBtn) {
+                exampleBtn.addEventListener('click', openModal);
+            }
+
+            if (exampleBtn2) {
+                exampleBtn2.addEventListener('click', openModal);
+            }
+
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', closeModal);
+            }
+
+            // Close modal on backdrop click
+            exampleModal.addEventListener('click', function(e) {
+                if (e.target === exampleModal) {
+                    closeModal();
+                }
+            });
+
+            // Close modal on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && exampleModal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
+            // Button hover effects
+            const btns = document.querySelectorAll('.btn-primary, .btn-secondary');
+            btns.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Pricing button handlers
+            document.querySelectorAll('.pricing-card .btn-primary').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const plan = this.closest('.pricing-card').querySelector('h3').textContent;
+                    const price = this.closest('.pricing-card').querySelector('.price').textContent.trim();
+                    alert(`✅ You selected the ${plan} plan - ${price}\n\nYou will be redirected to payment to complete your verification.`);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

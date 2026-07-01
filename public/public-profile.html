@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Alex Rivers | Certil.ink Profile</title>
+    <!-- Tailwind + Google Fonts + Material Icons -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#f3f3fe",
+                        "surface-container": "#ededf9",
+                        "primary": "#004ac6",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-container-high": "#e7e7f3",
+                        "tertiary": "#943700",
+                        "on-primary-fixed": "#00174b",
+                        "on-tertiary-container": "#ffede6",
+                        "on-error": "#ffffff",
+                        "secondary": "#505f76",
+                        "surface-dim": "#d9d9e5",
+                        "outline": "#737686",
+                        "primary-container": "#2563eb",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-tint": "#0053db",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-surface-variant": "#434655",
+                        "on-background": "#191b23",
+                        "secondary-container": "#d0e1fb",
+                        "on-surface": "#191b23",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdbcd",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-container-highest": "#e1e2ed",
+                        "inverse-on-surface": "#f0f0fb",
+                        "tertiary-container": "#bc4800",
+                        "surface": "#faf8ff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary-container": "#54647a",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "inverse-surface": "#2e3039",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "background": "#faf8ff",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e1e2ed",
+                        "on-primary-container": "#eeefff",
+                        "surface-bright": "#faf8ff"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        gutter: "1.5rem",
+                        xl: "2rem",
+                        base: "4px",
+                        "2xl": "3rem",
+                        "container-max": "1280px",
+                        xs: "0.25rem",
+                        sm: "0.5rem",
+                        md: "1rem",
+                        lg: "1.5rem"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        display: ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "500" }],
+                        "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        display: ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f9fafb;
+            color: #191b23;
+            -webkit-font-smoothing: antialiased;
+        }
+        .ambient-shadow {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        /* certificate card preview */
+        .cert-preview-container {
+            background: #f3f4f6;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cert-preview-image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .cert-preview-pdf {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .cert-preview-error {
+            text-align: center;
+            color: #737686;
+            font-size: 0.8rem;
+        }
+        /* alert */
+        #alertContainer .alert {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+        #alertContainer .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        #alertContainer .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        #alertContainer .alert-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #1f2937;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+        .btn-block {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        .certificate-card {
+            background: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .certificate-card:hover {
+            transform: translateY(-4px);
+        }
+        .cert-details {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .cert-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .cert-type {
+            font-size: 0.75rem;
+            color: #737686;
+        }
+        .cert-date {
+            font-size: 0.7rem;
+            color: #737686;
+            margin-top: 0.25rem;
+        }
+        .cert-actions {
+            margin-top: 0.5rem;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #737686;
+        }
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md">
+    <!-- Top Navigation Bar -->
+    <header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant">
+        <div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto">
+            <div class="flex items-center gap-md">
+                <span class="text-headline-md font-headline-md font-bold text-primary">Certil.ink</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-24 pb-2xl px-gutter max-w-5xl mx-auto">
+        <!-- Alert Container -->
+        <div id="alertContainer" class="mb-4"></div>
+
+        <!-- Profile Header Section -->
+        <section class="mb-2xl">
+            <div class="bg-white rounded-xl ambient-shadow p-lg md:p-xl flex flex-col md:flex-row gap-xl items-center md:items-start text-center md:text-left">
+                <!-- Avatar -->
+                <div class="relative">
+                    <img id="publicAvatar" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-surface-container shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZl5__HUKBzDabzvuldUi-5ALfdyzPswp-iWzmPilj_iMZ7tTTpSqIq-JVPqv1ksj26YuIyp8mHCxH0eftHElMRkdn8ALD87nCjbO2vRpsMuQx-aFlkqaS2iYi9iCnqyQwV3N0V0TEZJVBPmqfqe4TtIJoNX-DIirI5ouCVUY2ww-UqmYrrUMcuHnJhIGKyaWtnnNa3kEzWEb5y1r-dCP3UMjTUbhwY7VjgHDtVc9XzJN-c0_6uHpYbSjz5UsNLd2ne_dhubFIfz6T" alt="Profile" />
+                    <div id="verifiedIcon" class="absolute bottom-2 right-2 bg-primary text-white p-xs rounded-full flex items-center justify-center cursor-pointer">
+                        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                    </div>
+                </div>
+                <!-- Info -->
+                <div class="flex-1 space-y-md">
+                    <div class="space-y-xs">
+                        <h1 id="publicName" class="font-display text-display text-on-surface">Alex Rivers</h1>
+                        <p id="publicUsernameDisplay" class="text-primary font-label-md tracking-wide">@arivers_design</p>
+                    </div>
+                    <p id="publicBio" class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                        Passionate UX Designer and AWS Certified Architect based in San Francisco. Specializing in creating secure, scalable enterprise systems with a focus on user-centric verification flows.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificates Grid Section -->
+        <section>
+            <div class="flex items-center justify-between mb-lg">
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">Certificates</h2>
+            </div>
+            <!-- Bento Grid -->
+            <div id="publicCertificateGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+                <!-- Static cards will be replaced by JS, but we keep them as fallback -->
+                <div class="bg-white rounded-xl ambient-shadow p-lg flex flex-col gap-md hover:translate-y-[-4px] transition-all cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-[32px]">google</span>
+                        </div>
+                        <span class="px-sm py-xs rounded-full bg-blue-100 text-primary text-[10px] font-bold uppercase tracking-wider">Active</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Google UX Design</h3>
+                        <p class="text-on-surface-variant font-body-md">Google Professional Training</p>
+                    </div>
+                    <div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
+                        <span class="text-on-surface-variant font-label-md">Issued: Oct 2023</span>
+                        <span class="material-symbols-outlined text-outline">arrow_forward</span>
+                    </div>
+                </div>
+                <!-- second static -->
+                <div class="bg-white rounded-xl ambient-shadow p-lg flex flex-col gap-md hover:translate-y-[-4px] transition-all cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-[32px]">cloud</span>
+                        </div>
+                        <span class="px-sm py-xs rounded-full bg-blue-100 text-primary text-[10px] font-bold uppercase tracking-wider">Active</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-xs">AWS Solutions Architect</h3>
+                        <p class="text-on-surface-variant font-body-md">Amazon Web Services</p>
+                    </div>
+                    <div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
+                        <span class="text-on-surface-variant font-label-md">Issued: Jan 2024</span>
+                        <span class="material-symbols-outlined text-outline">arrow_forward</span>
+                    </div>
+                </div>
+                <!-- third static -->
+                <div class="bg-white rounded-xl ambient-shadow p-lg flex flex-col gap-md hover:translate-y-[-4px] transition-all cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center">
+                            <span class="material-symbols-outlined text-tertiary text-[32px]">assignment_turned_in</span>
+                        </div>
+                        <span class="px-sm py-xs rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold uppercase tracking-wider">Renewing</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Project Management Pro</h3>
+                        <p class="text-on-surface-variant font-body-md">PMI Institute</p>
+                    </div>
+                    <div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
+                        <span class="text-on-surface-variant font-label-md">Issued: Jun 2022</span>
+                        <span class="material-symbols-outlined text-outline">arrow_forward</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Empty state (hidden by default) -->
+            <div id="publicEmptyState" class="empty-state" style="display:none;">
+                <div class="empty-icon">📄</div>
+                <h3>No Certificates</h3>
+                <p>This user hasn't uploaded any certificates yet</p>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="mt-2xl text-center p-xl bg-primary-container rounded-xl text-on-primary-container shadow-lg relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern height="40" id="grid" patternunits="userSpaceOnUse" width="40">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"></path>
+                        </pattern>
+                    </defs>
+                    <rect fill="url(#grid)" height="100%" width="100%"></rect>
+                </svg>
+            </div>
+            <div class="relative z-10">
+                <h3 class="font-headline-lg text-headline-lg mb-md">Want your own One link. All your certificates.</h3>
+                <div class="flex flex-col sm:flex-row justify-center gap-md">
+                    <button class="bg-white text-primary px-xl py-md rounded-lg font-bold hover:shadow-xl transition-all active:scale-95">Get Started for Free</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript: Utils + API + Public Profile logic -->
+    <script src="js/public-profile.js"></script>
+    <!--<script src="js/dashboard.js"></script>-->
+
+    <!--<script>
+        // Handle path-based routing for public profiles
+        (function() {
+            let username = null;
+            
+            // Method 1: Get from URL path /public/username
+            const path = window.location.pathname;
+            const pathParts = path.split('/').filter(p => p);
+            
+            // Check if we're on a /public/:username route
+            if (pathParts.length >= 2 && pathParts[0] === 'public') {
+                username = pathParts[1];
+            }
+            // Check if we're on a /:username route (without public prefix)
+            else if (pathParts.length === 1 && pathParts[0] !== 'public-profile.html' && !pathParts[0].includes('.')) {
+                username = pathParts[0];
+            }
+            
+            // Method 2: Get from query parameter (backward compatibility)
+            if (!username) {
+                const urlParams = new URLSearchParams(window.location.search);
+                username = urlParams.get('username');
+            }
+            
+            // Store the username globally
+            if (username) {
+                window._publicUsername = username;
+                console.log('🔍 Username detected:', username);
+            } else {
+                console.log('❌ No username detected in URL');
+            }
+        })();
+    </script>-->
+</body>
+</html>
