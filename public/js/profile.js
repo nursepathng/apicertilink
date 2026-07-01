@@ -38,12 +38,12 @@
                 }
             },
             requireAuth: () => { if (!Utils.isAuthenticated()) { window.location.href = '/'; return false; } return true; },
-            getPublicProfileUrl: (username) => `http://localhost/certilink/public/${username}`
+            getPublicProfileUrl: (username) => `https://api-certilink.onrender.com/${username}`
         };
         window.Utils = Utils;
 
         const API = {
-            baseURL: 'http://localhost:5000/api',
+            baseURL: 'https://api-certilink.onrender.com/api',
             getHeaders: (includeAuth = true) => {
                 const headers = { 'Content-Type': 'application/json' };
                 if (includeAuth) {
