@@ -1,6 +1,6 @@
 // API Configuration
 const API = {
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'https://api-certilink.onrender.com/api',
     
     // Get headers with auth token
     getHeaders: (includeAuth = true) => {
