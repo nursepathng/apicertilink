@@ -73,35 +73,32 @@ app.get('/public-profile.html', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/public-profile.html'));
 });
 
-// Handle public profile routes with clean URLs
+// Handle public profile routes with /public/ prefix (backward compatibility)
 app.get('/public/:username', (req, res) => {
-  const { username } = req.params;
-  // Send the HTML file with the username as a query parameter
-  // This way the JavaScript can easily read it
+  // Serve the public profile page - JS will extract username from URL
   res.sendFile(path.join(__dirname, '../public/public-profile.html'));
 });
 
-// Also handle direct username routes
+// ========== MAIN USERNAME ROUTE - Handles ALL usernames ==========
+// This route handles /hey, /john, /alice, /any_username, etc.
 app.get('/:username', (req, res, next) => {
   const { username } = req.params;
   
-  // Skip static files and API routes
-  if (username.includes('.') || 
-      username === 'index.html' || 
-      username === 'dashboard.html' || 
-      username === 'profile.html' || 
-      username === 'public-profile.html' ||
-      username === 'favicon.ico' ||
-      username === 'js' ||
-      username === 'css' ||
-      username === 'public' ||
-      username === 'api') {
-      return next();
+  // Skip static files and special routes
+  const skipPatterns = [
+    'index.html', 'dashboard.html', 'profile.html', 'public-profile.html',
+    'favicon.ico', 'js', 'css', 'public', 'api', 'health'
+  ];
+  
+  if (username.includes('.') || skipPatterns.includes(username)) {
+    return next();
   }
   
-  // Redirect to /public/:username for consistency
-  res.redirect(`/public/${username}`);
+  // Serve the public profile page for ANY username
+  // The JavaScript will extract the username from the URL
+  res.sendFile(path.join(__dirname, '../public/public-profile.html'));
 });
+// ==================================================================
 
 // Error handling middleware
 app.use(errorHandler);
