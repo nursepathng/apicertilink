@@ -76,18 +76,19 @@
 // public/js/public-profile.js
 
 // ----------------------------------------------------------------
-//  PUBLIC PROFILE LOGIC
+//  PUBLIC PROFILE LOGIC - Handles ALL usernames
 // ----------------------------------------------------------------
 
 // Immediately extract username from URL
 (function() {
     let username = null;
     
-    // Method 1: Get from URL path /public/username
+    // Get the current path
     const path = window.location.pathname;
     const pathParts = path.split('/').filter(p => p);
     
     console.log('🔍 Path parts:', pathParts);
+    console.log('📍 Current path:', path);
     
     // Check if we're on a /public/:username route
     if (pathParts.length >= 2 && pathParts[0] === 'public') {
@@ -95,12 +96,20 @@
         console.log('✅ Found username in /public/:username:', username);
     }
     // Check if we're on a /:username route (without public prefix)
-    else if (pathParts.length === 1 && 
-             pathParts[0] !== 'public-profile.html' && 
-             pathParts[0] !== '' &&
-             !pathParts[0].includes('.')) {
-        username = pathParts[0];
-        console.log('✅ Found username in /:username:', username);
+    // This handles /hey, /john, /alice, etc.
+    else if (pathParts.length === 1) {
+        const possibleUsername = pathParts[0];
+        // Make sure it's not a file or special route
+        if (!possibleUsername.includes('.') && 
+            possibleUsername !== 'public-profile.html' && 
+            possibleUsername !== '' &&
+            possibleUsername !== 'index.html' &&
+            possibleUsername !== 'dashboard.html' &&
+            possibleUsername !== 'profile.html' &&
+            possibleUsername !== 'favicon.ico') {
+            username = possibleUsername;
+            console.log('✅ Found username in /:username:', username);
+        }
     }
     
     // Method 2: Get from query parameter (backward compatibility)
@@ -131,17 +140,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!username) {
         const path = window.location.pathname;
         const pathParts = path.split('/').filter(p => p);
+        
         if (pathParts.length >= 2 && pathParts[0] === 'public') {
             username = pathParts[1];
-        } else if (pathParts.length === 1 && pathParts[0] !== 'public-profile.html' && !pathParts[0].includes('.')) {
-            username = pathParts[0];
+        } else if (pathParts.length === 1) {
+            const possibleUsername = pathParts[0];
+            if (!possibleUsername.includes('.') && 
+                possibleUsername !== 'public-profile.html' && 
+                possibleUsername !== '' &&
+                possibleUsername !== 'index.html' &&
+                possibleUsername !== 'dashboard.html' &&
+                possibleUsername !== 'profile.html' &&
+                possibleUsername !== 'favicon.ico') {
+                username = possibleUsername;
+            }
         }
     }
 
     if (!username || username === 'public-profile.html' || username === '') {
         console.error('❌ No username found');
-        document.getElementById('publicName').textContent = 'User not found';
-        document.getElementById('publicBio').textContent = 'No username provided';
+        const nameElement = document.getElementById('publicName');
+        const bioElement = document.getElementById('publicBio');
+        if (nameElement) nameElement.textContent = 'User not found';
+        if (bioElement) bioElement.textContent = 'No username provided';
         Utils.showAlert('No username provided. Please check the URL.', 'error');
         return;
     }
@@ -157,12 +178,17 @@ async function loadPublicProfile(username) {
         console.log('✅ Profile data received:', data);
         
         // Update profile information
-        document.getElementById('publicName').textContent = data.user.name;
-        document.getElementById('publicUsernameDisplay').textContent = `@${data.user.username}`;
-        document.getElementById('publicBio').textContent = data.user.bio || 'No bio available';
+        const nameElement = document.getElementById('publicName');
+        const usernameDisplay = document.getElementById('publicUsernameDisplay');
+        const bioElement = document.getElementById('publicBio');
+        const avatarElement = document.getElementById('publicAvatar');
         
-        if (data.user.avatarUrl) {
-            document.getElementById('publicAvatar').src = data.user.avatarUrl;
+        if (nameElement) nameElement.textContent = data.user.name;
+        if (usernameDisplay) usernameDisplay.textContent = `@${data.user.username}`;
+        if (bioElement) bioElement.textContent = data.user.bio || 'No bio available';
+        
+        if (avatarElement && data.user.avatarUrl) {
+            avatarElement.src = data.user.avatarUrl;
         }
         
         document.title = `${data.user.name} - Certil.ink`;
@@ -172,20 +198,48 @@ async function loadPublicProfile(username) {
         const emptyState = document.getElementById('publicEmptyState');
 
         if (data.certificates && data.certificates.length > 0) {
-            grid.innerHTML = data.certificates.map(cert => createPublicCertificateCard(cert)).join('');
-            grid.style.display = 'grid';
-            emptyState.style.display = 'none';
+            if (grid) {
+                grid.innerHTML = data.certificates.map(cert => createPublicCertificateCard(cert)).join('');
+                grid.style.display = 'grid';
+            }
+            if (emptyState) emptyState.style.display = 'none';
             console.log(`📄 Loaded ${data.certificates.length} certificates`);
         } else {
-            grid.style.display = 'none';
-            emptyState.style.display = 'block';
+            if (grid) grid.style.display = 'none';
+            if (emptyState) {
+                emptyState.style.display = 'block';
+                emptyState.innerHTML = `
+                    <h3>No Certificates Yet</h3>
+                    <p>This user hasn't uploaded any certificates.</p>
+                `;
+            }
             console.log('📄 No certificates found');
         }
     } catch (error) {
         console.error('❌ Error loading profile:', error);
-        document.getElementById('publicName').textContent = 'User not found';
-        document.getElementById('publicBio').textContent = 'This user does not exist';
-        Utils.showAlert('User not found. Please check the username.', 'error');
+        
+        // Show friendly "user not found" message for ANY non-existent user
+        const nameElement = document.getElementById('publicName');
+        const usernameDisplay = document.getElementById('publicUsernameDisplay');
+        const bioElement = document.getElementById('publicBio');
+        const grid = document.getElementById('publicCertificateGrid');
+        const emptyState = document.getElementById('publicEmptyState');
+        
+        if (nameElement) nameElement.textContent = 'User Not Found';
+        if (usernameDisplay) usernameDisplay.textContent = `@${username}`;
+        if (bioElement) bioElement.textContent = `The user "${username}" does not exist.`;
+        
+        if (grid) grid.style.display = 'none';
+        if (emptyState) {
+            emptyState.style.display = 'block';
+            emptyState.innerHTML = `
+                <h3>Profile Not Found</h3>
+                <p>The user you're looking for doesn't exist.</p>
+                <a href="/" class="btn-primary" style="display: inline-block; margin-top: 16px; padding: 12px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 8px;">Go Home</a>
+            `;
+        }
+        
+        Utils.showAlert(`User "${username}" not found.`, 'error');
     }
 }
 
@@ -414,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
     handleVerifiedClick();
 });
 
-// sticky header
+// Sticky header
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if (header) {
