@@ -47,7 +47,7 @@ const API = {
     // Auth endpoints
     auth: {
         register: (userData) => {
-            return API.request('/auth/register', {
+            return API.request('https://api-certilink.onrender.com/api/auth/register', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 includeAuth: false
@@ -55,7 +55,7 @@ const API = {
         },
         
         login: (credentials) => {
-            return API.request('/auth/login', {
+            return API.request('https://api-certilink.onrender.com/api/auth/login', {
                 method: 'POST',
                 body: JSON.stringify(credentials),
                 includeAuth: false
@@ -63,7 +63,7 @@ const API = {
         },
         
         logout: () => {
-            return API.request('/auth/logout', {
+            return API.request('https://api-certilink.onrender.com/api/auth/logout', {
                 method: 'POST'
             });
         }
@@ -72,11 +72,11 @@ const API = {
     // Profile endpoints
     profile: {
         get: () => {
-            return API.request('/profile/me');
+            return API.request('https://api-certilink.onrender.com/api/profile/me');
         },
         
         update: (data) => {
-            return API.request('/profile', {
+            return API.request('https://api-certilink.onrender.com/api/profile', {
                 method: 'PUT',
                 body: JSON.stringify(data)
             });
@@ -151,11 +151,11 @@ const API = {
         },
         
         getAll: () => {
-            return API.request('/certificates');
+            return API.request('https://api-certilink.onrender.com/api/certificates');
         },
         
         delete: (id) => {
-            return API.request(`/certificates/${id}`, {
+            return API.request(`https://api-certilink.onrender.com/api/certificates/${id}`, {
                 method: 'DELETE'
             });
         }
@@ -164,7 +164,7 @@ const API = {
     // Public endpoints
     public: {
         getProfile: (username) => {
-            return API.request(`/u/${username}`, {
+            return API.request(`https://api-certilink.onrender.com/api/u/${username}`, {
                 includeAuth: false
             });
         }
